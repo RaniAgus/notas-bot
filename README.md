@@ -11,3 +11,10 @@ Un bot que te avisa si te cargaron la nota.
   compararlos con la siguiente consulta.
 - `DISCORD_TOKEN`: API Token del bot de Discord
 - `DISCORD_CHANNEL`: ID del canal de Discord donde enviar las notificaciones
+
+## Build & Run desde Docker
+
+```bash
+docker build . --rm -t raniagus/notas-bot
+docker run --rm -d --init --env-file=./.env raniagus/notas-bot
+```
