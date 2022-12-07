@@ -32,7 +32,7 @@ const filterTableData = (table) => {
 }
 
 const getData = async () => {
-  const html = await getHtmlFromUrl(process.env.URL);
+  const html = await getHtmlFromUrl(process.env.PUBLISHED_SHEET_URL);
   const table = filterTableData(getTableFromHtml(html));
   return JSON.stringify(table, null, 2);
 };

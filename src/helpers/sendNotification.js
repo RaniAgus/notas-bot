@@ -11,7 +11,7 @@ const sendNotification = async (client, data) => {
   const button = new discord.ButtonBuilder()
     .setStyle(discord.ButtonStyle.Link)
     .setLabel('Ver notas')
-    .setURL(process.env.URL)
+    .setURL(process.env.PUBLISHED_SHEET_URL)
     .setEmoji('📝');
 
   await channel.send({ embeds: [embed], components: [
