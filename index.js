@@ -1,10 +1,12 @@
 const fs = require('fs');
+
 const getData = require('./helpers/getData');
+const getDiscordClient = require('./helpers/getDiscordClient');
 const sendNotification = require('./helpers/sendNotification');
 
 require('dotenv').config();
 
-const checkIfDataHasChanged = (data) => {
+const checkIfDataHasChanged = (client, data) => {
   if (!fs.existsSync(process.env.OUTPUT_FILE)) {
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
     return;
@@ -13,16 +15,17 @@ const checkIfDataHasChanged = (data) => {
   const oldData = fs.readFileSync(process.env.OUTPUT_FILE, 'utf8');
   if (oldData !== data) {
     console.log('Actualizaron el excel con las notas!');
-    sendNotification();
+    sendNotification(client, data);
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
   } else {
     console.log('No hay novedades');
   }
 };
 
-(async () => {
+getDiscordClient().then(async (client) => {
   while (true) {
-    getData().then(checkIfDataHasChanged);
+    const data = await getData();
+    checkIfDataHasChanged(client, data);
     await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 5));
   }
-})();
+});
