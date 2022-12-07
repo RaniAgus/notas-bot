@@ -26,7 +26,7 @@ const getHtmlFromUrl = async (url) => {
 }
 
 const filterTableData = (table) => {
-  const query = process.env.FILTER.split(',');
+  const query = process.env.QUERY.split(',');
   const filteredTable = table.filter(row => row.some(element => query.includes(element)));
   return filteredTable;
 }
