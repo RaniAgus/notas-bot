@@ -9,6 +9,8 @@ require('dotenv').config();
 const checkIfDataHasChanged = (client, data) => {
   if (!fs.existsSync(process.env.OUTPUT_FILE)) {
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
+    console.log('Archivo de notas creado');
+    console.log(JSON.parse(data))
     return;
   }
 
