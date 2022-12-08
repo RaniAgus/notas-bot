@@ -20,8 +20,9 @@ Un bot que te avisa si te cargaron la nota.
 3. Ir a `Bot` > `Add Bot`
 4. Crear un `token`, que vamos a usar para setear `DISCORD_TOKEN`
 5. Ir a `OAuth2` > `URL Generator`
-6. Darle permisos de `guilds` y `bot`
-7. Abajo, darle todos los `Text Permissions` y además `Messages/View Channels`.
+6. Darle permisos de `bot`
+7. Abajo, darle todos los `Text Permissions` y además
+   `Read Messages/View Channels`.
 8. Ir a la uri generada e invitar el bot a tu server.
 
 ## Ejecución en local
@@ -35,3 +36,6 @@ npm start
 1. [Instalar `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
 2. Crear una cuenta con `fly auth signup` o loguearse con `fly auth login`
 3. [Desplegar via Dockerfile](https://fly.io/docs/languages-and-frameworks/dockerfile/)
+
+Tener en cuenta que, al ser un bot de Discord y no una Web App, debemos quitar
+toda la parte de `[services]` que se encuentra en el archivo `fly.toml`.
