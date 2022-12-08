@@ -20,7 +20,7 @@ const checkIfDataHasChanged = (client, data) => {
     sendNotification(client, data);
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
   } else {
-    console.log('No hay novedades');
+    console.log(`[${new Date().toLocaleString()}] No hay novedades`);
   }
 };
 
