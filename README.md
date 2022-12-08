@@ -24,15 +24,14 @@ Un bot que te avisa si te cargaron la nota.
 7. Abajo, darle todos los `Text Permissions` y además `Messages/View Channels`.
 8. Ir a la uri generada e invitar el bot a tu server.
 
-## Build & Run en local
+## Ejecución en local
 
 ```bash
 npm start
 ```
 
-## Build & Run desde Docker
+## Despliegue en fly.io
 
-```bash
-docker build . --rm -t raniagus/notas-bot
-docker run --rm -d --init --env-file=./.env raniagus/notas-bot
-```
+1. [Instalar `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
+2. Crear una cuenta con `fly auth signup` o loguearse con `fly auth login`
+3. [Desplegar via Dockerfile](https://fly.io/docs/languages-and-frameworks/dockerfile/)
