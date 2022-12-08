@@ -16,7 +16,7 @@ const checkIfDataHasChanged = (client, data) => {
 
   const oldData = fs.readFileSync(process.env.OUTPUT_FILE, 'utf8');
   if (oldData !== data) {
-    console.log('Actualizaron el excel con las notas!');
+    console.log(`[${new Date().toLocaleString()}] Actualizaron el excel con las notas!`);
     sendNotification(client, data);
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
   } else {
