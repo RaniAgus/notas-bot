@@ -10,17 +10,17 @@ const checkIfDataHasChanged = (client, data) => {
   if (!fs.existsSync(process.env.OUTPUT_FILE)) {
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
     console.log('Archivo de notas creado');
-    console.log(JSON.parse(data))
+    JSON.parse(data).forEach(row => console.log(JSON.stringify(row)));
     return;
   }
 
   const oldData = fs.readFileSync(process.env.OUTPUT_FILE, 'utf8');
   if (oldData !== data) {
-    console.log(`[${new Date().toLocaleString()}] Actualizaron el excel con las notas!`);
+    console.log(`Actualizaron el excel con las notas!`);
     sendNotification(client, data);
     fs.writeFileSync(process.env.OUTPUT_FILE, data);
   } else {
-    console.log(`[${new Date().toLocaleString()}] No hay novedades`);
+    console.log(`No hay novedades`);
   }
 };
 
