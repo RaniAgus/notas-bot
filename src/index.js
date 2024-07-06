@@ -30,6 +30,6 @@ getDiscordClient().then(async (client) => {
   while (true) {
     const data = await getData();
     checkIfDataHasChanged(client, data);
-    await new Promise(resolve => setTimeout(() => resolve(), 1000 * 60 * 5));
+    await new Promise(resolve => setTimeout(() => resolve(), env.INTERVAL));
   }
 });
