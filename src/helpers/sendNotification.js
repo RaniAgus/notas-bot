@@ -1,12 +1,32 @@
 const discord = require('discord.js');
+const env = require('./environment');
 
 const sendNotification = async (client, data) => {
-  const channel = client.channels.cache.get(process.env.DISCORD_CHANNEL);
+  const channel = client.channels.cache.get(env.DISCORD_CHANNEL);
+
+  const transformedData = data.map(element => {
+    const fields = [];
+    for (const key in element) {
+      if (key.startsWith('_')) {
+        continue;
+      }
+      fields.push({
+        name: key,
+        value: element[key] || 'N/A',
+        inline: true
+      });
+    }
+    return fields;
+  });
 
   const embed = new discord.EmbedBuilder()
     .setTitle('Notas actualizadas')
     .setDescription('¡Actualizaron el excel con las notas!')
     .setTimestamp();
+
+  for (const fields of transformedData) {
+    embed.addFields(...fields);
+  }
 
   const button = new discord.ButtonBuilder()
     .setStyle(discord.ButtonStyle.Link)

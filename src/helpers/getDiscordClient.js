@@ -1,4 +1,5 @@
 const discord = require('discord.js');
+const env = require('./environment');
 
 const getDiscordClient = () => {
   const client = new discord.Client({
@@ -10,7 +11,7 @@ const getDiscordClient = () => {
   });
 
   return new Promise(resolve => {
-    client.login(process.env.DISCORD_TOKEN).then(() => {
+    client.login(env.DISCORD_TOKEN).then(() => {
       resolve(client);
     });
   })

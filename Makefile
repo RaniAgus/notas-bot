@@ -7,12 +7,13 @@ build:
 	docker build . --rm -t $(TAG)
 
 run:
-	docker run --rm -d --init --env-file=./.env $(TAG)
+	docker run -d --init --env-file=./.env --name=notas_bot $(TAG)
 
 stop:
-	echo $(IDS) | tr ' ' '\n' | xargs --no-run-if-empty docker stop
+	-docker stop notas_bot
+	-docker container rm notas_bot
 
-clean:
+down: stop
 	-docker rmi $(TAG)
 	-docker image prune
 
@@ -22,4 +23,4 @@ exec:
 logs:
 	docker logs $(word 1,$(IDS)) -f
 
-.PHONY: all build run stop clean exec logs
+.PHONY: all build run stop down exec logs
