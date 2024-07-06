@@ -9,7 +9,8 @@ require('dotenv').config();
  * @property {string} DISCORD_CHANNEL
  * @property {string} DISCORD_TOKEN
  * @property {number} INTERVAL
- * @property {string} OUTPUT_FILE
+ * @property {string} CACHE_KEY
+ * @property {string} CACHE_URL
  */
 
 const variables = [
@@ -19,7 +20,8 @@ const variables = [
   { name: 'DISCORD_CHANNEL', type: 'string' },
   { name: 'DISCORD_TOKEN', type: 'string' },
   { name: 'INTERVAL', type: 'number', defaultValue: 1000 * 60 * 5 },
-  { name: 'OUTPUT_FILE', type: 'string' },
+  { name: 'CACHE_KEY', type: 'string' },
+  { name: 'CACHE_URL', type: 'string', optional: true },
 ];
 
 /**
@@ -31,7 +33,7 @@ const errors = [];
 for (const variable of variables) {
   const value = process.env[variable.name];
   if (!value) {
-    if (variable.defaultValue) {
+    if (variable.defaultValue || variable.optional) {
       env[variable.name] = variable.defaultValue;
     } else {
       errors.push(variable.name);
