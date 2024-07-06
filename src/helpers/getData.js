@@ -12,9 +12,11 @@ const getTableFromHtml = (html) => {
     const rowData = [];
     for (let j = 0; j < columns.length; j += 1) {
       const column = columns[j];
-      if (!column.hasAttribute('rowspan')) {
-        rowData.push(column.textContent);
+      // Si la celda tiene rowspan la primera fila va a tener más columnas que las demás
+      if (column.hasAttribute('rowspan')) {
+        continue;
       }
+      rowData.push(column.textContent);
     }
     data.push(rowData);
   }
