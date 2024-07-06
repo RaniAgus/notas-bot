@@ -1,7 +1,34 @@
 const { JSDOM } = require('jsdom');
-const { QUERY, COLUMN_NAMES } = require('./environment');
 const env = require('./environment');
 
+/**
+ * @returns {Promise<Object[]>}
+ */
+const getData = async () => {
+  const html = await getHtmlFromUrl(env.PUBLISHED_SHEET_URL);
+  const table = transformTable(getTableFromHtml(html));
+  return table;
+};
+
+/**
+ * @param {string} url
+ * @returns {Promise<HTMLHtmlElement>}
+ */
+const getHtmlFromUrl = async (url) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Failed to fetch the page');
+  }
+
+  const dom = new JSDOM(await response.text());
+  const html = dom.window.document.querySelector('html');
+  return html;
+}
+
+/**
+ * @param {HTMLHtmlElement} html
+ * @returns {string[][]}
+ */
 const getTableFromHtml = (html) => {
   const table = html.querySelector('table');
   const rows = table.querySelectorAll('tr');
@@ -23,33 +50,20 @@ const getTableFromHtml = (html) => {
   return data;
 }
 
-const getHtmlFromUrl = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Failed to fetch the page');
-  }
-
-  const dom = new JSDOM(await response.text());
-  const html = dom.window.document.querySelector('html');
-  return html;
-}
-
-const filterTableData = (table) => {
-  const filteredTable = table.filter(row => row.some(element => QUERY.some((q) => element.includes(q))));
+/**
+ * @param {string[][]} table
+ * @returns {Record<string, string>[]}
+ */
+const transformTable = (table) => {
+  const filteredTable = table.filter(row => row.some(element => env.QUERY.some((q) => element.includes(q))));
   const transformedTable = filteredTable.map(row => {
     const obj = {};
     for (let i = 0; i < row.length; i += 1) {
-      obj[COLUMN_NAMES[i]] = row[i];
+      obj[env.COLUMN_NAMES[i]] = row[i];
     }
     return obj;
   });
   return transformedTable;
 }
-
-const getData = async () => {
-  const html = await getHtmlFromUrl(env.PUBLISHED_SHEET_URL);
-  const table = filterTableData(getTableFromHtml(html));
-  return table;
-};
 
 module.exports = getData;

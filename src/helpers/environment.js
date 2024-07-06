@@ -1,5 +1,17 @@
 require('dotenv').config();
 
+
+/**
+ * @typedef {Object} Environment
+ * @property {string[]} QUERY
+ * @property {string[]} COLUMN_NAMES
+ * @property {string} PUBLISHED_SHEET_URL
+ * @property {string} DISCORD_CHANNEL
+ * @property {string} DISCORD_TOKEN
+ * @property {number} INTERVAL
+ * @property {string} OUTPUT_FILE
+ */
+
 const variables = [
   { name: 'QUERY', type: 'array' },
   { name: 'COLUMN_NAMES', type: 'array' },
@@ -10,6 +22,9 @@ const variables = [
   { name: 'OUTPUT_FILE', type: 'string' },
 ];
 
+/**
+ * @type {Environment}
+ */
 const env = {};
 const errors = [];
 

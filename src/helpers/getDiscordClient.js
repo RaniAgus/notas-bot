@@ -1,7 +1,10 @@
 const discord = require('discord.js');
 const env = require('./environment');
 
-const getDiscordClient = () => {
+/**
+ * @returns {Promise<discord.Client>}
+ */
+const getDiscordClient = async () => {
   const client = new discord.Client({
     intents: [
       discord.GatewayIntentBits.Guilds,
@@ -10,11 +13,9 @@ const getDiscordClient = () => {
     partials: [],
   });
 
-  return new Promise(resolve => {
-    client.login(env.DISCORD_TOKEN).then(() => {
-      resolve(client);
-    });
-  })
+  await client.login(env.DISCORD_TOKEN);
+
+  return client;
 }
 
 module.exports = getDiscordClient;
