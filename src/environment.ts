@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import z from 'zod';
-
-dotenv.config();
 
 const schema = z.object({
   QUERY: z.string().transform(v => v.split(',')),
@@ -13,6 +10,6 @@ const schema = z.object({
   PORT: z.number({ coerce: true }).lte(65535).default(3000),
 });
 
-const env = schema.parse(process.env);
+const env = schema.parse(Bun.env);
 
 export default env;

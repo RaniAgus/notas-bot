@@ -1,18 +1,17 @@
 import Redis from 'ioredis';
-import fs from 'fs';
 import env from './environment';
 
 class FileSystemCache {
   async exists(key: string): Promise<boolean> {
-    return fs.existsSync(`${key}.json`);
+    return Bun.file(`${key}.json`).exists();
   }
 
   async get(key: string): Promise<string> {
-    return fs.readFileSync(`${key}.json`, 'utf8');
+    return Bun.file(`${key}.json`).text();
   }
 
   async set(key: string, value: string): Promise<void> {
-    fs.writeFileSync(`${key}.json`, value);
+    Bun.write(`${key}.json`, value);
   }
 }
 
