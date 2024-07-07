@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 const env = require('./environment');
 
-const client = new discord.WebhookClient({ url: process.env.WEBHOOK_URL });
+const client = new discord.WebhookClient({ url: env.WEBHOOK_URL });
 
 /**
  * @param {discord.Client} client
@@ -10,6 +10,7 @@ const client = new discord.WebhookClient({ url: process.env.WEBHOOK_URL });
 const sendNotification = async (data) => {
   const embed = new discord.EmbedBuilder()
     .setTitle('Notas actualizadas')
+    .setURL(env.PUBLISHED_SHEET_URL)
     .setDescription('¡Actualizaron el excel con las notas!')
     .setTimestamp();
 
@@ -34,7 +35,7 @@ const sendNotification = async (data) => {
   await client.send({
     embeds: [embed],
     components: [
-      new discord.ActionRowBuilder().setComponents(button)
+      new discord.ActionRowBuilder().setComponents(button),
     ],
   });
 }
