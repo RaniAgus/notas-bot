@@ -7,13 +7,9 @@ build:
 	docker build . --rm -t $(TAG)
 
 run:
-	docker run -d --init --env-file=./.env --name=notas_bot $(TAG)
+	docker run --rm --init --env-file=./.env -p3000:3000 --name=notas_bot $(TAG)
 
-stop:
-	-docker stop notas_bot
-	-docker container rm notas_bot
-
-down: stop
+down:
 	-docker rmi $(TAG)
 	-docker image prune
 

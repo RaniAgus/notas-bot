@@ -9,9 +9,8 @@ Un bot que te avisa si te cargaron la nota.
   cada uno va separado por comas. Esto permite que te notifique solo si te
   cargaron la nota a vos o a un compa. Ejemplo: `QUERY=FOO,BAR,BAZ`
 - `COLUMN_NAMES`: Nombres de las columnas a revisar y mostrar en el mensaje de
-  Discord. Las columnas que tienen celdas combinadas en fila son omitidas. Las
-  columnas que empiezan con `_` son guardadas pero omitidas en el mensaje.
-  Discord soporta 3 columnas por fila. Ejemplo:
+  Discord. Las columnas que tienen celdas combinadas y las que empiezan con `_`
+  son ignoradas. Discord soporta 3 columnas por fila. Ejemplo:
   `COLUMN_NAMES=_Nombre,Apellido,Nota`
 - `OUTPUT_FILE`: Ruta en donde se van a guardar los resultados para luego
   compararlos con la siguiente consulta.

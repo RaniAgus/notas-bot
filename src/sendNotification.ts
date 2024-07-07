@@ -1,14 +1,10 @@
-const discord = require('discord.js');
-const env = require('./environment');
+import { ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder, WebhookClient } from 'discord.js';
+import env from './environment';
 
-const client = new discord.WebhookClient({ url: env.WEBHOOK_URL });
+const client = new WebhookClient({ url: env.WEBHOOK_URL });
 
-/**
- * @param {discord.Client} client
- * @param {Record<string, string>[]} data
- */
-const sendNotification = async (data) => {
-  const embed = new discord.EmbedBuilder()
+export default async (data: Record<string, string>[]): Promise<void> => {
+  const embed = new EmbedBuilder()
     .setTitle('Notas actualizadas')
     .setURL(env.PUBLISHED_SHEET_URL)
     .setDescription('¡Actualizaron el excel con las notas!')
@@ -26,19 +22,19 @@ const sendNotification = async (data) => {
     embed.addFields(...fields);
   }
 
-  const button = new discord.ButtonBuilder()
-    .setStyle(discord.ButtonStyle.Link)
+  const button = new ButtonBuilder()
+    .setStyle(ButtonStyle.Link)
     .setLabel('Ver notas')
     .setURL(env.PUBLISHED_SHEET_URL)
     .setEmoji('📝');
 
-  const actionRow = new discord.ActionRowBuilder()
-    .setComponents(button);
-
   await client.send({
     embeds: [embed],
-    components: [actionRow],
+    components: [
+      {
+        type: ComponentType.ActionRow,
+        components: [button],
+      }
+    ],
   });
 }
-
-module.exports = sendNotification;

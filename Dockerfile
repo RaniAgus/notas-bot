@@ -1,11 +1,10 @@
-FROM node:18-alpine
+FROM oven/bun:1
 
-WORKDIR /app
+WORKDIR /usr/src/app
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile --production
+COPY . ./
 
-COPY package*.json ./
-
-RUN npm ci
-
-COPY . .
-
-ENTRYPOINT [ "npm", "start"]
+USER bun
+EXPOSE 3000/tcp
+ENTRYPOINT [ "bun", "run", "src/index.ts" ]
