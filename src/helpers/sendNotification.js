@@ -32,11 +32,12 @@ const sendNotification = async (data) => {
     .setURL(env.PUBLISHED_SHEET_URL)
     .setEmoji('📝');
 
+  const actionRow = new discord.ActionRowBuilder()
+    .setComponents(button);
+
   await client.send({
     embeds: [embed],
-    components: [
-      new discord.ActionRowBuilder().setComponents(button),
-    ],
+    components: [actionRow],
   });
 }
 
