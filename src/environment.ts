@@ -7,7 +7,7 @@ const schema = z.object({
   WEBHOOK_URL: z.string(),
   CACHE_KEY: z.string(),
   CACHE_URL: z.string().optional(),
-  PORT: z.number({ coerce: true }).lte(65535).default(3000),
+  PORT: z.coerce.number().lte(65535).default(3000),
 });
 
 const env = schema.parse(Bun.env);
