@@ -9,11 +9,11 @@ class FileSystemCache {
 
   async get(key) {
     const data = fs.readFileSync(this.#keyOf(key), 'utf8');
-    return JSON.parse(data);
+    return data;
   }
 
   async set(key, data) {
-    fs.writeFileSync(this.#keyOf(key), JSON.stringify(data, null, 2));
+    fs.writeFileSync(this.#keyOf(key), data);
   }
 
   #keyOf(key) {

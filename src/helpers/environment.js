@@ -6,8 +6,7 @@ require('dotenv').config();
  * @property {string[]} QUERY
  * @property {string[]} COLUMN_NAMES
  * @property {string} PUBLISHED_SHEET_URL
- * @property {string} DISCORD_CHANNEL
- * @property {string} DISCORD_TOKEN
+ * @property {string} WEBHOOK_URL
  * @property {number} INTERVAL
  * @property {string} CACHE_KEY
  * @property {string} CACHE_URL
@@ -17,8 +16,7 @@ const variables = [
   { name: 'QUERY', type: 'array' },
   { name: 'COLUMN_NAMES', type: 'array' },
   { name: 'PUBLISHED_SHEET_URL', type: 'string' },
-  { name: 'DISCORD_CHANNEL', type: 'string' },
-  { name: 'DISCORD_TOKEN', type: 'string' },
+  { name: 'WEBHOOK_URL', type: 'string' },
   { name: 'INTERVAL', type: 'number', defaultValue: 1000 * 60 * 5 },
   { name: 'CACHE_KEY', type: 'string' },
   { name: 'CACHE_URL', type: 'string', optional: true },
