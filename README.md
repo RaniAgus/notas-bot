@@ -1,6 +1,6 @@
 # notas-bot
 
-Un bot que te avisa si te cargaron la nota.
+Un ~~bot~~ webhook que te avisa si te cargaron la nota.
 
 ## Variables
 
@@ -12,34 +12,29 @@ Un bot que te avisa si te cargaron la nota.
   Discord. Las columnas que tienen celdas combinadas y las que empiezan con `_`
   son ignoradas. Discord soporta 3 columnas por fila. Ejemplo:
   `COLUMN_NAMES=_Nombre,Apellido,Nota`
-- `OUTPUT_FILE`: Ruta en donde se van a guardar los resultados para luego
-  compararlos con la siguiente consulta.
-- `DISCORD_TOKEN`: API Token del bot de Discord
-- `DISCORD_CHANNEL`: ID del canal de Discord donde enviar las notificaciones
+- `CACHE_URL` (opcional): Url de una caché Redis para guardar el estado de las
+  notas. Esto permite que no te notifique si no te cargaron la nota a pesar de
+  que se haya apagado el servidor. Si no se setea, se guarda en un archivo
+  local.
+- `CACHE_KEY`: Clave para guardar el estado de las notas en la caché. Ejemplo:
+  `CACHE_KEY=notas:dds`.
+- `WEBHOOK_URL`: Url del webhook de Discord donde enviar las notificaciones.
 
-## Setup del Bot
+## Setup del Webhook
 
-1. Ir a [Discord Developer Portal - My Applications](https://discord.com/developers/applications)
-2. Hacer click en `New Application`
-3. Ir a `Bot` > `Add Bot`
-4. Crear un `token`, que vamos a usar para setear `DISCORD_TOKEN`
-5. Ir a `OAuth2` > `URL Generator`
-6. Darle permisos de `bot`
-7. Abajo, darle todos los `Text Permissions` y además
-   `Read Messages/View Channels`.
-8. Ir a la uri generada e invitar el bot a tu server.
+1. Ir a la configuración del canal de Discord donde se quiera recibir las
+   notificaciones.
+2. Ir a la sección de Integraciones.
+3. Crear un webhook.
+4. Copiar la url del webhook y setearla en la variable de entorno `WEBHOOK_URL`.
 
 ## Ejecución en local
 
 ```bash
-npm start
+bun start
 ```
 
-## Despliegue en fly.io
+## Despliegue
 
-1. [Instalar `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
-2. Crear una cuenta con `fly auth signup` o loguearse con `fly auth login`
-3. [Desplegar via Dockerfile](https://fly.io/docs/languages-and-frameworks/dockerfile/)
-
-Tener en cuenta que, al ser un bot de Discord y no una Web App, debemos quitar
-toda la parte de `[services]` que se encuentra en el archivo `fly.toml`.
+- Web service: [Render](https://render.com/)
+- Cron job: [cron-job.org](https://cron-job.org/)
