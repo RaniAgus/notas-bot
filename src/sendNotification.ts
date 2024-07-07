@@ -3,7 +3,7 @@ import env from './environment';
 
 const client = new WebhookClient({ url: env.WEBHOOK_URL });
 
-export default async (data: Record<string, string>[]): Promise<void> => {
+export default async (data: string[][]): Promise<void> => {
   const embed = new EmbedBuilder()
     .setTitle('Notas actualizadas')
     .setURL(env.PUBLISHED_SHEET_URL)
@@ -11,13 +11,13 @@ export default async (data: Record<string, string>[]): Promise<void> => {
     .setTimestamp();
 
   for (const element of data) {
-    const fields = Object.entries(element)
-      .filter(([key]) => !key.startsWith('_'))
-      .map(([key, value]) => ({
-        name: key,
+    const fields = element
+      .map((value, index) => ({
+        name: env.COLUMN_NAMES[index],
         value: value || 'N/A',
         inline: true,
-      }));
+      }))
+      .filter(({ name }) => !name.startsWith('_'));
 
     embed.addFields(...fields);
   }
