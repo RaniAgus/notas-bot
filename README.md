@@ -55,7 +55,7 @@ docker run --env-file=.env -p3000:3000 ghcr.io/raniagus/notas-bot:latest
 curl http://localhost:3000
 ```
 
-## Despliegue
+## Despliegue en la nube
 
 - Web service: [Render](https://render.com/)
 - Cron job: [cron-job.org](https://cron-job.org/)
