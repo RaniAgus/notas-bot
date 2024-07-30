@@ -46,8 +46,8 @@ docker run --env-file=.env ghcr.io/raniagus/notas-bot:latest
 ```
 
 > [!WARNING]
-> En ambos casos, asegurarse de crear un archivo `.env` basándose en el
-> `.env.example` provisto.
+> En ambos casos, asegurarse de primero crear un archivo `.env` basándose en
+> el `.env.example` provisto.
 
 ## Despliegue
 
