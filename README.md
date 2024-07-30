@@ -30,9 +30,24 @@ Un ~~bot~~ webhook que te avisa si te cargaron la nota.
 
 ## Ejecución en local
 
+- Desde [Bun](https://bun.sh/):
+
 ```bash
+git clone https://github.com/RaniAgus/notas-bot
+cd notas-bot
 bun start
 ```
+
+- Desde [Docker](https://docs.docker.com/get-docker/):
+
+```bash
+docker pull ghcr.io/raniagus/notas-bot:latest
+docker run --env-file=.env ghcr.io/raniagus/notas-bot:latest
+```
+
+> [!WARNING]
+> En ambos casos, asegurarse de crear un archivo `.env` basándose en el
+> `.env.example` provisto.
 
 ## Despliegue
 
