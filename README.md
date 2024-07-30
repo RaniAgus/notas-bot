@@ -42,12 +42,18 @@ bun start
 
 ```bash
 docker pull ghcr.io/raniagus/notas-bot:latest
-docker run --env-file=.env ghcr.io/raniagus/notas-bot:latest
+docker run --env-file=.env -p3000:3000 ghcr.io/raniagus/notas-bot:latest
 ```
 
 > [!WARNING]
 > En ambos casos, asegurarse de primero crear un archivo `.env` basándose en
 > el `.env.example` provisto.
+
+## Probar en local
+
+```bash
+curl http://localhost:3000
+```
 
 ## Despliegue
 
