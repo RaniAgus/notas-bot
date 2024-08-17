@@ -16,10 +16,10 @@ async function getDOMFromUrl(url: string): Promise<JSDOM> {
 }
 
 const getTableFromDOM = (dom: JSDOM): string[][] => {
-  return [...dom.window.document.querySelectorAll('html')]
-    .flatMap(html => [...html.querySelectorAll('table')])
-    .flatMap(table => [...table.querySelectorAll('tr')])
-    .map(tr => [...tr.querySelectorAll('td')]
+  return Array.from(dom.window.document.querySelectorAll('html'))
+    .flatMap(html => Array.from(html.querySelectorAll('table')))
+    .flatMap(table => Array.from(table.querySelectorAll('tr')))
+    .map(tr => Array.from(tr.querySelectorAll('td'))
       .filter(td => !td.hasAttribute('rowspan'))
       .map(td => td.textContent ?? '')
     );
